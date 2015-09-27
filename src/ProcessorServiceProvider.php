@@ -1,5 +1,4 @@
 <?php
-
 namespace Czim\Processor;
 
 use Illuminate\Support\ServiceProvider;
