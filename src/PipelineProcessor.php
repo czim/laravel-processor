@@ -31,14 +31,6 @@ abstract class PipelineProcessor extends AbstractProcessor
 
 
     /**
-     * Sets up the process context before running the pipeline
-     */
-    protected function before()
-    {
-        $this->context = $this->buildProcessContext();
-    }
-
-    /**
      * Extend this class to configure your own process context setup
      * Builds a generic processcontext with only the process data injected.
      */
@@ -53,10 +45,11 @@ abstract class PipelineProcessor extends AbstractProcessor
      */
     protected function doProcessing()
     {
-        // initialization process pipeline
-        // preparation for processing
+        $this->context = $this->buildProcessContext();
 
-        $initSteps = $this->gatherInitProcessSteps();
+        // initialization process pipeline
+
+        $initSteps = $this->initProcessSteps();
 
         if ( ! empty($initSteps)) {
 
@@ -74,7 +67,7 @@ abstract class PipelineProcessor extends AbstractProcessor
 
         // main pipeline (actual processing)
 
-        $steps = $this->gatherProcessSteps();
+        $steps = $this->processSteps();
 
         if ($this->databaseTransaction) DB::beginTransaction();
 
@@ -94,12 +87,12 @@ abstract class PipelineProcessor extends AbstractProcessor
 
             if ($this->databaseTransaction) DB::rollBack();
 
-            $this->handleExceptionInPipeline($e);
+            $this->onExceptionInPipeline($e);
 
             throw $e;
         }
 
-        $this->handlePipelineCompleted();
+        $this->afterPipeline();
 
 
         $this->populateResult();
@@ -107,29 +100,11 @@ abstract class PipelineProcessor extends AbstractProcessor
 
 
     // ------------------------------------------------------------------------------
-    //      Customizable / Abstractions
+    //      Process Steps configuration
     // ------------------------------------------------------------------------------
 
     /**
-     * Runs directly after init pipeline.
-     * Extend this to customize your processor
-     */
-    protected function afterInitSteps()
-    {
-    }
-
-    /**
-     * Populate the result property based on the current process context
-     * This is called after the pipeline completes (and only if no exceptions are thrown)
-     */
-    protected function populateResult()
-    {
-        // default: mark that the processor completed succesfully
-        $this->result->setSuccess(true);
-    }
-
-    /**
-     * Gather the steps to initialize the processing context.
+     * Gathers the steps to initialize the processing context.
      * These are the steps to perform BEFORE the real processing
      * takes place. It is separate to ensure that we have contextual
      * information to handle exceptions during the real process
@@ -143,33 +118,59 @@ abstract class PipelineProcessor extends AbstractProcessor
      *
      * @return array
      */
-    protected function gatherInitProcessSteps()
+    protected function initProcessSteps()
     {
         return [];
     }
 
     /**
-     * Gather the steps to pass the dataobject through as a collection
+     * Gathers the steps to pass the dataobject through as a collection
      * These are the steps for AFTER the initial checks and retrieval
      * has been handled.
      *
      * @return array
      */
-    abstract protected function gatherProcessSteps();
+    abstract protected function processSteps();
+
+
+    // ------------------------------------------------------------------------------
+    //      Customizable / Abstractions
+    // ------------------------------------------------------------------------------
 
     /**
-     * Handles any type of exception thrown during the execution of the (main) pipeline steps
-     *
-     * @param Exception $e
+     * Populate the result property based on the current process context
+     * This is called after the pipeline completes (and only if no exceptions are thrown)
      */
-    protected function handleExceptionInPipeline(Exception $e)
+    protected function populateResult()
+    {
+        // default: mark that the processor completed succesfully
+        $this->result->setSuccess(true);
+    }
+
+    /**
+     * Runs directly after init pipeline.
+     * Extend this to customize your processor
+     */
+    protected function afterInitSteps()
     {
     }
 
     /**
-     * Handles the succesful completion of the (main) pipeline
+     * Runs directly after succesfully completing main pipeline process
+     * Extend this to customize your processor
      */
-    protected function handlePipelineCompleted()
+    protected function afterPipeline()
+    {
+    }
+
+    /**
+     * Runs when any exception in the main pipeline steps is thrown.
+     * Override this to handle exceptions.
+     * The exception will be re-thrown after this.
+     *
+     * @param Exception $e
+     */
+    protected function onExceptionInPipeline(Exception $e)
     {
     }
 

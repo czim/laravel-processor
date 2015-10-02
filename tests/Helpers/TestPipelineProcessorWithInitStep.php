@@ -4,7 +4,7 @@ namespace Czim\Processor\Test\Helpers;
 class TestPipelineProcessorWithInitStep extends TestPipelineProcessor
 {
 
-    protected function gatherInitProcessSteps()
+    protected function initProcessSteps()
     {
         return [
             TestProcessStep::class,
@@ -12,7 +12,7 @@ class TestPipelineProcessorWithInitStep extends TestPipelineProcessor
     }
 
     // disable main steps
-    protected function gatherProcessSteps()
+    protected function processSteps()
     {
         return [];
     }

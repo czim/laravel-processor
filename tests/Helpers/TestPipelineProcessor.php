@@ -13,7 +13,7 @@ class TestPipelineProcessor extends PipelineProcessor
     /**
      * @return array
      */
-    protected function gatherProcessSteps()
+    protected function processSteps()
     {
         if ($this->throwExceptionInMainStep) {
             return [
