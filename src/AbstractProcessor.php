@@ -7,11 +7,6 @@ use Czim\Processor\DataObjects\ProcessorResult;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\MessageBag;
 
-/**
- * @todo remove dependency on app() function, replace with injected Container
- * @todo work out how to deal with / set 'settings'
- * @todo work out how to deal with configurable logging
- */
 abstract class AbstractProcessor implements ProcessorInterface
 {
 
