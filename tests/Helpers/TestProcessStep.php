@@ -11,6 +11,8 @@ class TestProcessStep extends AbstractProcessStep
     protected function process()
     {
         $this->processWasCalled = true;
+
+        $this->context->setSetting('step_was_run', true);
     }
 
 

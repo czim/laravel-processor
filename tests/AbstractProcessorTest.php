@@ -4,6 +4,7 @@ namespace Czim\Processor\Test;
 use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\DataObjects\ProcessorResult;
 use Czim\Processor\Test\Helpers\TestSimpleProcessor;
+use Illuminate\Contracts\Support\MessageBag;
 
 class AbstractProcessorTest extends TestCase
 {
@@ -59,6 +60,12 @@ class AbstractProcessorTest extends TestCase
         $result = $processor->process($data);
 
         $this->assertInstanceOf(ProcessorResult::class, $result, "Result of incorrect type");
+
+        // test some default properties expected on the dataobject
+
+        $this->assertInternalType('boolean', $result->getSuccess());
+        $this->assertInstanceOf(MessageBag::class, $result->getErrors());
+        $this->assertInstanceOf(MessageBag::class, $result->getWarnings());
     }
 
 
