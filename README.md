@@ -27,6 +27,11 @@ $ composer require czim/laravel-processor
 
 ...
 
+## To Do
+
+- Make App/Container injectable, remove dependency on laravel's app() function
+- Add settings initialization for AbstractProcessor
+- Test repositories in ProcessContext?
 
 ## Contributing
 
