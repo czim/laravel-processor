@@ -51,7 +51,7 @@ abstract class PipelineProcessor extends AbstractProcessor
     /**
      * Performs the actual processing
      */
-    public function doProcessing()
+    protected function doProcessing()
     {
         // initialization process pipeline
         // preparation for processing
@@ -161,7 +161,9 @@ abstract class PipelineProcessor extends AbstractProcessor
      *
      * @param Exception $e
      */
-    abstract protected function handleExceptionInPipeline(Exception $e);
+    protected function handleExceptionInPipeline(Exception $e)
+    {
+    }
 
     /**
      * Handles the succesful completion of the (main) pipeline

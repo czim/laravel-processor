@@ -72,7 +72,7 @@ abstract class AbstractProcessor implements ProcessorInterface
     /**
      * Performs the actual processing
      */
-    abstract public function doProcessing();
+    abstract protected function doProcessing();
 
 
     /**

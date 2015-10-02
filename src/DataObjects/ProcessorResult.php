@@ -15,6 +15,9 @@ class ProcessorResult extends AbstractDataObject
         $this->setAttribute('success', (bool) $success);
     }
 
+    /**
+     * @return boolean
+     */
     public function getSuccess()
     {
         return $this->getAttribute('success');
