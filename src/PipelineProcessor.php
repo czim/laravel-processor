@@ -2,7 +2,7 @@
 namespace Czim\Processor;
 
 use Czim\Processor\Contracts\ProcessContextInterface;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 /**
@@ -27,7 +27,7 @@ abstract class PipelineProcessor extends AbstractProcessor
      *
      * @var ProcessContextInterface
      */
-    protected $processContext;
+    protected $context;
 
 
     /**
@@ -35,7 +35,7 @@ abstract class PipelineProcessor extends AbstractProcessor
      */
     protected function before()
     {
-        $this->processContext = $this->buildProcessContext();
+        $this->context = $this->buildProcessContext();
     }
 
     /**
@@ -60,15 +60,15 @@ abstract class PipelineProcessor extends AbstractProcessor
 
         if ( ! empty($initSteps)) {
 
-            $this->processContext = app(Pipeline::class)
-                 ->send($this->processContext)
+            $this->context = app(Pipeline::class)
+                 ->send($this->context)
                  ->through($initSteps)
                  ->then(function (ProcessContextInterface $context) {
 
                     return $context;
                  });
 
-            $this->enrichContextAfterInitSteps();
+            $this->afterInitSteps();
         }
 
 
@@ -80,8 +80,8 @@ abstract class PipelineProcessor extends AbstractProcessor
 
         try {
 
-            $this->processContext = app(Pipeline::class)
-                 ->send($this->processContext)
+            $this->context = app(Pipeline::class)
+                 ->send($this->context)
                  ->through($steps)
                  ->then(function(ProcessContextInterface $context) {
 
@@ -106,24 +106,26 @@ abstract class PipelineProcessor extends AbstractProcessor
     }
 
 
+    // ------------------------------------------------------------------------------
+    //      Customizable / Abstractions
+    // ------------------------------------------------------------------------------
+
+    /**
+     * Runs directly after init pipeline.
+     * Extend this to customize your processor
+     */
+    protected function afterInitSteps()
+    {
+    }
+
     /**
      * Populate the result property based on the current process context
      * This is called after the pipeline completes (and only if no exceptions are thrown)
      */
     protected function populateResult()
     {
-        // default: only mark that the processor completed succesfully
+        // default: mark that the processor completed succesfully
         $this->result->setSuccess(true);
-    }
-
-
-    /**
-     * Enriches the process context returned from the init pipeline.
-     * This method does nothing, but can be overridden by child processors if
-     * something needs to be injected in the context before starting the actual processing pipeline.
-     */
-    protected function enrichContextAfterInitSteps()
-    {
     }
 
     /**
@@ -155,9 +157,8 @@ abstract class PipelineProcessor extends AbstractProcessor
      */
     abstract protected function gatherProcessSteps();
 
-
     /**
-     * Handles any type of exception thrown during the execution of (main) pipeline steps
+     * Handles any type of exception thrown during the execution of the (main) pipeline steps
      *
      * @param Exception $e
      */
