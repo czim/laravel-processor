@@ -35,7 +35,11 @@ abstract class AbstractProcessStep implements ProcessStepInterface
         $this->context = $processContext;
         $this->data    = $this->context->getData();
 
+        $this->before();
+
         $this->process();
+
+        $this->after();
 
         return $next($processContext);
     }
@@ -44,5 +48,27 @@ abstract class AbstractProcessStep implements ProcessStepInterface
      * Execute the actual processing of the step
      */
     abstract protected function process();
+
+
+    // ------------------------------------------------------------------------------
+    //      Customizable / Abstractions
+    // ------------------------------------------------------------------------------
+
+    /**
+     * Runs before the process() method is called
+     * Extend this to customize your process step
+     */
+    protected function before()
+    {
+    }
+
+    /**
+     * Runs directly after the process() method is called
+     * Extend this to customize your process step
+     */
+    protected function after()
+    {
+    }
+
 }
 
