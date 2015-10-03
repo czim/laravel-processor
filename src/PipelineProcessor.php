@@ -31,6 +31,18 @@ abstract class PipelineProcessor extends AbstractProcessor
 
 
     /**
+     * @param array                   $settings
+     * @param ProcessContextInterface $context      optional: inject a fully prepared context (only data is overwritten)
+     */
+    public function __construct(array $settings = [], ProcessContextInterface $context = null)
+    {
+        $this->context = $context;
+
+        parent::__construct($settings);
+    }
+
+
+    /**
      * Extend this class to configure your own process context setup
      * Builds a generic processcontext with only the process data injected.
      * If a context was injected in the constructor, data for it is set,
@@ -38,6 +50,12 @@ abstract class PipelineProcessor extends AbstractProcessor
      */
     protected function prepareProcessContext()
     {
+        if ( ! is_null($this->context)) {
+
+            $this->context->setData($this->data);
+            return;
+        }
+
         $this->context = app(Contexts\SimpleProcessContext::class, [ $this->data, $this->settings ]);
     }
 

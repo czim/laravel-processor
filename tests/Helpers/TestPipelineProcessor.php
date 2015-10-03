@@ -1,6 +1,7 @@
 <?php
 namespace Czim\Processor\Test\Helpers;
 
+use Czim\Processor\Contracts\ProcessContextInterface;
 use Czim\Processor\PipelineProcessor;
 
 class TestPipelineProcessor extends PipelineProcessor
@@ -27,9 +28,10 @@ class TestPipelineProcessor extends PipelineProcessor
     }
 
 
-    public function __construct($throwExceptionInMainStep = false)
+    public function __construct(array $settings = [], ProcessContextInterface $context = null, $throwExceptionInMainStep = false)
     {
-        parent::__construct();
+        parent::__construct($settings, $context);
+
         $this->throwExceptionInMainStep = $throwExceptionInMainStep;
     }
 
