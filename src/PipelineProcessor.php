@@ -23,6 +23,14 @@ abstract class PipelineProcessor extends AbstractProcessor
     protected $databaseTransaction = true;
 
     /**
+     * The classname of the process context to instantiate if none is injected
+     * into the constructor.
+     *
+     * @var string
+     */
+    protected $processContextClass = Contexts\SimpleProcessContext::class;
+
+    /**
      * The (current) process context being passed through the steps
      *
      * @var ProcessContextInterface
@@ -56,7 +64,7 @@ abstract class PipelineProcessor extends AbstractProcessor
             return;
         }
 
-        $this->context = app(Contexts\SimpleProcessContext::class, [ $this->data, $this->settings ]);
+        $this->context = app($this->processContextClass, [ $this->data, $this->settings ]);
     }
 
 
