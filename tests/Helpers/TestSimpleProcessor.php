@@ -41,4 +41,9 @@ class TestSimpleProcessor extends AbstractProcessor
         return $this->data;
     }
 
+    public function testGetSettings()
+    {
+        return $this->settings;
+    }
+
 }

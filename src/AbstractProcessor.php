@@ -37,8 +37,13 @@ abstract class AbstractProcessor implements ProcessorInterface
     protected $result = null;
 
 
-    public function __construct()
+    /**
+     * @param array $settings
+     */
+    public function __construct(array $settings = [])
     {
+        $this->settings = $settings;
+
         $this->initializeResult();
 
         $this->initialize();

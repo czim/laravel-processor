@@ -12,6 +12,18 @@ class AbstractProcessorTest extends TestCase
     /**
      * @test
      */
+    function it_takes_settings_on_construction()
+    {
+        $array = [ 'random' => 'setting' ];
+
+        $processor = new TestSimpleProcessor($array);
+
+        $this->assertSame($array, $processor->testGetSettings(), "Settings not correctly stored on construct");
+    }
+
+    /**
+     * @test
+     */
     function it_runs_the_doprocessing_and_before_and_after_methods_when_processing()
     {
         // note that this does not test the actual order in which
