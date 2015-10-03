@@ -3,7 +3,6 @@ namespace Czim\Processor\Contexts;
 
 use Czim\Processor\Exceptions\ContextRepositoryException;
 use Czim\Repository\Contracts\BaseRepositoryInterface as RepositoryInterface;
-use Exception;
 
 trait ContextRepositoryTrait
 {
@@ -31,7 +30,7 @@ trait ContextRepositoryTrait
     /**
      * @param string $name
      * @return RepositoryInterface
-     * @throws Exception
+     * @throws ContextRepositoryException   if repository name not found
      */
     public function getRepository($name)
     {
@@ -50,7 +49,7 @@ trait ContextRepositoryTrait
      * @param string $method
      * @param array  $parameters
      * @return mixed
-     * @throws Exception
+     * @throws ContextRepositoryException   if repository name not found
      */
     public function repository($name, $method, array $parameters = [])
     {
