@@ -64,11 +64,6 @@ abstract class AbstractProcessor implements ProcessorInterface
         return $this->getResult();
     }
 
-    /**
-     * Performs the actual processing
-     */
-    abstract protected function doProcessing();
-
 
     /**
      * Set extra data that the processor should use during the import
@@ -121,6 +116,12 @@ abstract class AbstractProcessor implements ProcessorInterface
     // ------------------------------------------------------------------------------
     //      Customizable / Abstractions
     // ------------------------------------------------------------------------------
+
+    /**
+     * Performs the actual processing
+     */
+    abstract protected function doProcessing();
+
 
     /**
      * Runs directly after construction

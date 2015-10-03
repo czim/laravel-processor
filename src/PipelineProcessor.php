@@ -33,10 +33,12 @@ abstract class PipelineProcessor extends AbstractProcessor
     /**
      * Extend this class to configure your own process context setup
      * Builds a generic processcontext with only the process data injected.
+     * If a context was injected in the constructor, data for it is set,
+     * but settings are not applied.
      */
-    protected function buildProcessContext()
+    protected function prepareProcessContext()
     {
-        return app(Contexts\SimpleProcessContext::class, [ $this->data, $this->settings ]);
+        $this->context = app(Contexts\SimpleProcessContext::class, [ $this->data, $this->settings ]);
     }
 
 
@@ -45,7 +47,8 @@ abstract class PipelineProcessor extends AbstractProcessor
      */
     protected function doProcessing()
     {
-        $this->context = $this->buildProcessContext();
+        $this->prepareProcessContext();
+
 
         // initialization process pipeline
 
@@ -104,17 +107,18 @@ abstract class PipelineProcessor extends AbstractProcessor
     // ------------------------------------------------------------------------------
 
     /**
-     * Gathers the steps to initialize the processing context.
+     * Returns the steps to initialize the processing context.
      * These are the steps to perform BEFORE the real processing
      * takes place. It is separate to ensure that we have contextual
      * information to handle exceptions during the real process
      * with.
      *
      * Nothing in here should require any cleanup!
+     * The init steps also do not get executed in a database transaction.
      *
-     * By default there is no init process, so it is skipped.
-     * Extend this with your own init steps to enable the init
-     * pipeline.
+     * By default there is no init process (empty array returned),
+     * so it is skipped. Extend this with your own init steps to enable the
+     * init pipeline.
      *
      * @return array
      */
