@@ -15,9 +15,8 @@ interface ProcessorInterface
      * @param DataObjectInterface $data
      * @return ProcessorResult
      * @throws CouldNotHandleDataException
-     *
      */
-    public function process(DataObjectInterface $data);
+    public function process(DataObjectInterface $data = null);
 
     /**
      * Set extra data that the processor should use during the import

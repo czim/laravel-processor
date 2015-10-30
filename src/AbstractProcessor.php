@@ -3,6 +3,7 @@ namespace Czim\Processor;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\Contracts\ProcessorInterface;
+use Czim\Processor\DataObjects\ProcessorData;
 use Czim\Processor\DataObjects\ProcessorResult;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\MessageBag;
@@ -47,6 +48,8 @@ abstract class AbstractProcessor implements ProcessorInterface
         $this->initializeResult();
 
         $this->initialize();
+
+        $this->data = $this->getDefaultData();
     }
 
 
@@ -56,9 +59,11 @@ abstract class AbstractProcessor implements ProcessorInterface
      * @param DataObjectInterface $data
      * @return ProcessorResult
      */
-    public function process(DataObjectInterface $data)
+    public function process(DataObjectInterface $data = null)
     {
-        $this->data = $data;
+        if ( ! is_null($data)) {
+            $this->data = $data;
+        }
 
         $this->before();
 
@@ -91,6 +96,35 @@ abstract class AbstractProcessor implements ProcessorInterface
         return $this;
     }
 
+    /**
+     * Returns the data (to be) processed
+     *
+     * @return DataObjectInterface
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Sets the data to be processed
+     *
+     * @param DataObjectInterface $data
+     */
+    public function setData(DataObjectInterface $data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * Returns default data-object if none is passed into the process method
+     *
+     * @return ProcessorData
+     */
+    protected function getDefaultData()
+    {
+        return new ProcessorData();
+    }
 
     /**
      * Initializes / prepopulates processor result

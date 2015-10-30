@@ -43,6 +43,8 @@ abstract class AbstractProcessContext implements ProcessContextInterface
         }
 
         $this->cache = [];
+
+        $this->initialize();
     }
 
 
@@ -138,6 +140,18 @@ abstract class AbstractProcessContext implements ProcessContextInterface
     public function getCache($key)
     {
         return Arr::get($this->cache, $key);
+    }
+
+    // ------------------------------------------------------------------------------
+    //      Customizable / Abstractions
+    // ------------------------------------------------------------------------------
+
+    /**
+     * Runs directly after construction
+     * Extend this to customize your context
+     */
+    protected function initialize()
+    {
     }
 
 }
