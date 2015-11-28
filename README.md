@@ -4,6 +4,8 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status](https://travis-ci.org/czim/laravel-processor.svg?branch=master)](https://travis-ci.org/czim/laravel-processor)
 [![Latest Stable Version](http://img.shields.io/packagist/v/czim/laravel-processor.svg)](https://packagist.org/packages/czim/laravel-processor)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/7ee4d4b8-9e04-45f0-b5ad-5aeee60e92d6/mini.png)](https://insight.sensiolabs.com/projects/7ee4d4b8-9e04-45f0-b5ad-5aeee60e92d6)
+
 
 Framework for building modular, pipelined data processors. 
 
