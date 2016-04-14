@@ -11,10 +11,22 @@ interface ProcessContextInterface
 {
 
     /**
-     * @param DataObjectInterface $data
-     * @param array               $settings
+     * @param DataObjectInterface     $data
+     * @param array|null              $settings
+     * @param ProcessorInterface|null $processor
      */
-    public function __construct(DataObjectInterface $data, array $settings = null);
+    public function __construct(DataObjectInterface $data, array $settings = null, ProcessorInterface $processor = null);
+
+    /**
+     * @param ProcessorInterface $processor
+     * @return $this
+     */
+    public function setProcessor(ProcessorInterface $processor);
+
+    /**
+     * @return ProcessorInterface|null
+     */
+    public function getProcessor();
 
     /**
      * Set DataObject to process

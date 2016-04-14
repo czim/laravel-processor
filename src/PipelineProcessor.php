@@ -58,13 +58,14 @@ abstract class PipelineProcessor extends AbstractProcessor
      */
     protected function prepareProcessContext()
     {
-        if ( ! is_null($this->context)) {
-
+        if (null !== $this->context) {
             $this->context->setData($this->data);
+            $this->context->setProcessor($this);
             return;
         }
 
-        $this->context = app($this->processContextClass, [ $this->data, $this->settings ]);
+        $this->context = app($this->processContextClass, [ $this->data, $this->settings, $this ]);
+
     }
 
 

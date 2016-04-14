@@ -3,6 +3,7 @@ namespace Czim\Processor\Contexts;
 
 use Czim\Processor\Contracts\ProcessContextInterface;
 use Czim\DataObject\Contracts\DataObjectInterface;
+use Czim\Processor\Contracts\ProcessorInterface;
 use Illuminate\Support\Arr;
 
 abstract class AbstractProcessContext implements ProcessContextInterface
@@ -29,13 +30,22 @@ abstract class AbstractProcessContext implements ProcessContextInterface
      */
     protected $cache = [];
 
+    /**
+     * @var ProcessorInterface|null
+     */
+    protected $processor;
+
 
     /**
-     * @param DataObjectInterface $data
-     * @param array|null          $settings
+     * @param DataObjectInterface     $data
+     * @param array|null              $settings
+     * @param ProcessorInterface|null $processor
      */
-    public function __construct(DataObjectInterface $data, array $settings = null)
-    {
+    public function __construct(
+        DataObjectInterface $data,
+        array $settings = null,
+        ProcessorInterface $processor = null
+    ) {
         $this->data = $data;
 
         if ( ! is_null($settings)) {
@@ -45,6 +55,25 @@ abstract class AbstractProcessContext implements ProcessContextInterface
         $this->cache = [];
 
         $this->initialize();
+    }
+
+    /**
+     * @param ProcessorInterface $processor
+     * @return $this
+     */
+    public function setProcessor(ProcessorInterface $processor)
+    {
+        $this->processor = $processor;
+
+        return $this;
+    }
+
+    /**
+     * @return ProcessorInterface|null
+     */
+    public function getProcessor()
+    {
+        return $this->processor;
     }
 
 
