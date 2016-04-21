@@ -46,7 +46,8 @@ abstract class AbstractProcessContext implements ProcessContextInterface
         array $settings = null,
         ProcessorInterface $processor = null
     ) {
-        $this->data = $data;
+        $this->data      = $data;
+        $this->processor = $processor;
 
         if ( ! is_null($settings)) {
             $this->setSettings($settings);
