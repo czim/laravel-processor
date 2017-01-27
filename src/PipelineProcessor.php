@@ -64,7 +64,9 @@ abstract class PipelineProcessor extends AbstractProcessor
             return;
         }
 
-        $this->context = app($this->processContextClass, [ $this->data, $this->settings, $this ]);
+        $class = $this->processContextClass;
+
+        $this->context = new $class($this->data, $this->settings, $this);
 
     }
 
