@@ -10,18 +10,6 @@ class SimpleProcessContextTest extends TestCase
     /**
      * @test
      */
-    function it_can_be_instantiated()
-    {
-        /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
-
-        new SimpleProcessContext($data);
-    }
-
-    /**
-     * @test
-     * @depends it_can_be_instantiated
-     */
     function it_can_be_instantiated_with_settings()
     {
         /** @var DataObjectInterface $data */

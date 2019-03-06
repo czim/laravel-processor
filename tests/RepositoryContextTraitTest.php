@@ -4,6 +4,7 @@ namespace Czim\Processor\Test;
 use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\Test\Helpers\TestRepositoryContext;
 use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Mockery;
 
 class RepositoryContextTraitTest extends TestCase
 {
@@ -13,12 +14,12 @@ class RepositoryContextTraitTest extends TestCase
     function it_takes_and_retrieves_a_repository_by_name()
     {
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new TestRepositoryContext($data);
 
         /** @var BaseRepositoryInterface $repository */
-        $repository = $this->getMockBuilder(BaseRepositoryInterface::class)->getMock();
+        $repository = Mockery::mock(BaseRepositoryInterface::class);
 
         $context->addRepository('test_repo', $repository);
 
@@ -46,14 +47,14 @@ class RepositoryContextTraitTest extends TestCase
     function it_delegates_method_calls_to_a_repository_by_name()
     {
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new TestRepositoryContext($data);
 
         // must use getMock, not getMockBuilder, or a call_user_func_array() will cause the test to fail
-        $repository = $this->getMock(BaseRepositoryInterface::class, [ 'testMethod' ]);
-        $repository->expects($this->exactly(1))
-                   ->method('testMethod');
+        /** @var BaseRepositoryInterface|Mockery\Mock|Mockery\MockInterface $repository */
+        $repository = Mockery::mock(BaseRepositoryInterface::class);
+        $repository->shouldReceive('testMethod')->once();
 
         /** @var BaseRepositoryInterface $repository */
         $context->addRepository('test_repo', $repository);
