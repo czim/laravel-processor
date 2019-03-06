@@ -4,7 +4,6 @@ namespace Czim\Processor\Test;
 use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\Contracts\ProcessContextInterface;
 use Czim\Processor\Test\Helpers\TestProcessStep;
-use Mockery;
 
 class ProcessStepTest extends TestCase
 {
@@ -23,7 +22,7 @@ class ProcessStepTest extends TestCase
         // processor runs the handle() method, so simulate that
         $step->handle($context, function () {});
 
-        $this->assertTrue($step->processWasCalled, "process() method was not called");
+        static::assertTrue($step->processWasCalled, "process() method was not called");
     }
 
     /**
@@ -69,8 +68,8 @@ class ProcessStepTest extends TestCase
         /** @var ProcessContextInterface $context */
         $step->handle($context, function () {});
 
-        $this->assertSame($context, $step->testGetContext(), "Context was not stored");
-        $this->assertSame($data, $step->testGetData(), "Data was not stored");
+        static::assertSame($context, $step->testGetContext(), "Context was not stored");
+        static::assertSame($data, $step->testGetData(), "Data was not stored");
     }
 
 }

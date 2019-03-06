@@ -17,8 +17,8 @@ class SimpleProcessContextTest extends TestCase
 
         $context = new SimpleProcessContext($data, [ 'test' => 'setting' ]);
 
-        $this->assertSame($data, $context->getData(), "Data was not stored correctly");
-        $this->assertSame([ 'test' => 'setting' ], $context->getSettings(), "Settings were not stored correctly");
+        static::assertSame($data, $context->getData(), "Data was not stored correctly");
+        static::assertSame([ 'test' => 'setting' ], $context->getSettings(), "Settings were not stored correctly");
     }
 
     /**
@@ -37,7 +37,7 @@ class SimpleProcessContextTest extends TestCase
         // set new data
         $context->setData($newData);
 
-        $this->assertSame($newData, $context->getData(), "New data was not stored correctly");
+        static::assertSame($newData, $context->getData(), "New data was not stored correctly");
     }
     
     /**
@@ -50,11 +50,11 @@ class SimpleProcessContextTest extends TestCase
 
         $context = new SimpleProcessContext($data);
 
-        $this->assertNull($context->getSetting('some_setting'), "unset setting should return null");
+        static::assertNull($context->getSetting('some_setting'), "unset setting should return null");
 
         $context->setSetting('some_setting', 'special content');
 
-        $this->assertEquals('special content', $context->getSetting('some_setting'), "setting not correctly set");
+        static::assertEquals('special content', $context->getSetting('some_setting'), "setting not correctly set");
     }
 
     /**
@@ -67,10 +67,10 @@ class SimpleProcessContextTest extends TestCase
 
         $context = new SimpleProcessContext($data);
 
-        $this->assertNull($context->getCache('cache_key'), "unset cache entry should return null");
+        static::assertNull($context->getCache('cache_key'), "unset cache entry should return null");
 
         $context->cache('cache_key', 'special content');
 
-        $this->assertEquals('special content', $context->getCache('cache_key'), "cache entry not correctly set");
+        static::assertEquals('special content', $context->getCache('cache_key'), "cache entry not correctly set");
     }
 }

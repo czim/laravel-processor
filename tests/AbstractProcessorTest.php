@@ -18,7 +18,7 @@ class AbstractProcessorTest extends TestCase
 
         $processor = new TestSimpleProcessor($array);
 
-        $this->assertSame($array, $processor->testGetSettings(), "Settings not correctly stored on construct");
+        static::assertSame($array, $processor->testGetSettings(), "Settings not correctly stored on construct");
     }
 
     /**
@@ -31,18 +31,18 @@ class AbstractProcessorTest extends TestCase
 
         $processor = new TestSimpleProcessor();
 
-        $this->assertFalse($processor->beforeWasCalled, "Initial state incorrect");
-        $this->assertFalse($processor->doProcessingWasCalled, "Initial state incorrect");
-        $this->assertFalse($processor->afterWasCalled, "Initial state incorrect");
+        static::assertFalse($processor->beforeWasCalled, "Initial state incorrect");
+        static::assertFalse($processor->doProcessingWasCalled, "Initial state incorrect");
+        static::assertFalse($processor->afterWasCalled, "Initial state incorrect");
 
         /** @var DataObjectInterface $data */
         $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
 
         $processor->process($data);
 
-        $this->assertTrue($processor->beforeWasCalled, "before() was not called");
-        $this->assertTrue($processor->doProcessingWasCalled, "doProcessing() was not called");
-        $this->assertTrue($processor->afterWasCalled, "after() was not called");
+        static::assertTrue($processor->beforeWasCalled, "before() was not called");
+        static::assertTrue($processor->doProcessingWasCalled, "doProcessing() was not called");
+        static::assertTrue($processor->afterWasCalled, "after() was not called");
     }
 
     /**
@@ -52,7 +52,7 @@ class AbstractProcessorTest extends TestCase
     {
         $processor = new TestSimpleProcessor();
 
-        $this->assertTrue($processor->initializeWasCalled, "initialize() was not called");
+        static::assertTrue($processor->initializeWasCalled, "initialize() was not called");
     }
 
 
@@ -71,13 +71,13 @@ class AbstractProcessorTest extends TestCase
 
         $result = $processor->process($data);
 
-        $this->assertInstanceOf(ProcessorResult::class, $result, "Result of incorrect type");
+        static::assertInstanceOf(ProcessorResult::class, $result, "Result of incorrect type");
 
         // test some default properties expected on the dataobject
 
-        $this->assertInternalType('boolean', $result->getSuccess());
-        $this->assertInstanceOf(MessageBag::class, $result->getErrors());
-        $this->assertInstanceOf(MessageBag::class, $result->getWarnings());
+        static::assertInternalType('boolean', $result->getSuccess());
+        static::assertInstanceOf(MessageBag::class, $result->getErrors());
+        static::assertInstanceOf(MessageBag::class, $result->getWarnings());
     }
 
 
@@ -93,7 +93,7 @@ class AbstractProcessorTest extends TestCase
 
         $processor->setExtraData($data);
 
-        $this->assertSame($data, $processor->testGetExtraData(), "ExtraData was not stored correctly");
+        static::assertSame($data, $processor->testGetExtraData(), "ExtraData was not stored correctly");
     }
 
     /**
@@ -108,6 +108,6 @@ class AbstractProcessorTest extends TestCase
 
         $processor->process($data);
 
-        $this->assertSame($data, $processor->testGetData(), "process() parameter data was not stored correctly");
+        static::assertSame($data, $processor->testGetData(), "process() parameter data was not stored correctly");
     }
 }
