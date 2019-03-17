@@ -27,11 +27,12 @@ class ProcessStepTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Exception
-     * @expectedExceptionMessage !next was called!
      */
     function it_calls_the_next_step_in_the_pipeline()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('!next was called!');
+
         /** @var ProcessContextInterface $context */
         $context = $this->getMockBuilder(ProcessContextInterface::class)
                         ->getMock();

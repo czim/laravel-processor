@@ -2,6 +2,7 @@
 namespace Czim\Processor\Test;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
+use Czim\Processor\Exceptions\ContextRepositoryException;
 use Czim\Processor\Test\Helpers\TestRepositoryContext;
 use Czim\Repository\Contracts\BaseRepositoryInterface;
 use Mockery;
@@ -28,11 +29,12 @@ class RepositoryContextTraitTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Czim\Processor\Exceptions\ContextRepositoryException
-     * @expectedExceptionMessageRegExp #not found.* unset_repo#
      */
     function it_throws_an_exception_if_it_cannot_find_a_repository()
     {
+        $this->expectException(ContextRepositoryException::class);
+        $this->expectExceptionMessageRegExp('#not found.* unset_repo#');
+
         /** @var DataObjectInterface $data */
         $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
 
