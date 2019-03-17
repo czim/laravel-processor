@@ -75,7 +75,11 @@ class AbstractProcessorTest extends TestCase
 
         // test some default properties expected on the dataobject
 
-        static::assertIsBool('boolean', $result->getSuccess());
+        if (method_exists($this, 'assertIsBool')) {
+            static::assertIsBool($result->getSuccess());
+        } else {
+            static::assertInternalType('boolean', $result->getSuccess());
+        }
         static::assertInstanceOf(MessageBag::class, $result->getErrors());
         static::assertInstanceOf(MessageBag::class, $result->getWarnings());
     }
