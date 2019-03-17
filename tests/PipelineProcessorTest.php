@@ -30,7 +30,7 @@ class PipelineProcessorTest extends TestCase
 
         $processor->process($data);
 
-        static::assertSame($context, $processor->testGetContext(), "Injected context was not correctly stored");
+        static::assertSame($context, $processor->testGetContext(), 'Injected context was not correctly stored');
     }
 
     /**
@@ -49,7 +49,7 @@ class PipelineProcessorTest extends TestCase
         $processor->process($data);
 
         static::assertInstanceOf(
-            ProcessContextInterface::class, $processor->testGetContext(), "Context was not built correctly"
+            ProcessContextInterface::class, $processor->testGetContext(), 'Context was not built correctly'
         );
     }
 
@@ -71,7 +71,7 @@ class PipelineProcessorTest extends TestCase
 
         // context should be altered by init step
         static::assertTrue(
-            $processor->testGetContext()->getSetting('step_was_run'), "step_was_run not set in context"
+            $processor->testGetContext()->getSetting('step_was_run'), 'step_was_run not set in context'
         );
     }
 
@@ -93,7 +93,7 @@ class PipelineProcessorTest extends TestCase
 
         // context should be altered by main step
         static::assertTrue(
-            $processor->testGetContext()->getSetting('step_was_run'), "step_was_run not set in context"
+            $processor->testGetContext()->getSetting('step_was_run'), 'step_was_run not set in context'
         );
     }
 

@@ -22,7 +22,7 @@ class ProcessStepTest extends TestCase
         // processor runs the handle() method, so simulate that
         $step->handle($context, function () {});
 
-        static::assertTrue($step->processWasCalled, "process() method was not called");
+        static::assertTrue($step->processWasCalled, 'process() method was not called');
     }
 
     /**
@@ -69,8 +69,8 @@ class ProcessStepTest extends TestCase
         /** @var ProcessContextInterface $context */
         $step->handle($context, function () {});
 
-        static::assertSame($context, $step->testGetContext(), "Context was not stored");
-        static::assertSame($data, $step->testGetData(), "Data was not stored");
+        static::assertSame($context, $step->testGetContext(), 'Context was not stored');
+        static::assertSame($data, $step->testGetData(), 'Data was not stored');
     }
 
 }
