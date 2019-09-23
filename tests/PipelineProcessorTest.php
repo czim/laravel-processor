@@ -5,6 +5,7 @@ use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\Contracts\ProcessContextInterface;
 use Czim\Processor\Test\Helpers\TestPipelineProcessor;
 use Czim\Processor\Test\Helpers\TestPipelineProcessorWithInitStep;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class PipelineProcessorTest extends TestCase
@@ -131,7 +132,7 @@ class PipelineProcessorTest extends TestCase
 
             $processor->process($data);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // caught only to let test pass and check rollBack
         }
     }

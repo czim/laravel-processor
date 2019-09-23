@@ -4,6 +4,7 @@ namespace Czim\Processor\Test;
 use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\Contracts\ProcessContextInterface;
 use Czim\Processor\Test\Helpers\TestProcessStep;
+use Exception;
 
 class ProcessStepTest extends TestCase
 {
@@ -39,7 +40,7 @@ class ProcessStepTest extends TestCase
 
         $closure = function () {
             // throw custom exception to assert that we got here
-            throw new \Exception('!next was called!');
+            throw new Exception('!next was called!');
         };
 
         $step = new TestProcessStep();

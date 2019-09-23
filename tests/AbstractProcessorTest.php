@@ -14,7 +14,9 @@ class AbstractProcessorTest extends TestCase
      */
     function it_takes_settings_on_construction()
     {
-        $array = [ 'random' => 'setting' ];
+        $array = [
+            'random' => 'setting',
+        ];
 
         $processor = new TestSimpleProcessor($array);
 
@@ -91,7 +93,9 @@ class AbstractProcessorTest extends TestCase
      */
     function it_takes_extra_data_to_be_set_besides_data_in_context()
     {
-        $data = [ 'testing' => 'data' ];
+        $data = [
+            'testing' => 'data',
+        ];
 
         $processor = new TestSimpleProcessor();
 
