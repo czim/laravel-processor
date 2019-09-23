@@ -7,6 +7,7 @@ use Czim\Processor\Test\Helpers\TestPipelineProcessor;
 use Czim\Processor\Test\Helpers\TestPipelineProcessorWithInitStep;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Mockery;
 
 class PipelineProcessorTest extends TestCase
 {
@@ -21,13 +22,19 @@ class PipelineProcessorTest extends TestCase
         DB::shouldReceive('beginTransaction')->once();
         DB::shouldReceive('commit')->once();
 
-        /** @var ProcessContextInterface $data */
-        $context = $this->getMockBuilder(ProcessContextInterface::class)->getMock();
+        /** @var ProcessContextInterface|Mockery\Mock|Mockery\MockInterface $data */
+        $context = Mockery::mock(ProcessContextInterface::class);
 
         $processor = new TestPipelineProcessor([], $context);
 
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
+
+        $context->shouldReceive('setData');
+        $context->shouldReceive('setProcessor');
+        $context->shouldReceive('setSetting');
+        $context->shouldReceive('getData')->andReturn($data);
+
 
         $processor->process($data);
 
@@ -45,7 +52,7 @@ class PipelineProcessorTest extends TestCase
         $processor = new TestPipelineProcessor();
 
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $processor->process($data);
 
@@ -66,7 +73,7 @@ class PipelineProcessorTest extends TestCase
         $processor = new TestPipelineProcessorWithInitStep();
 
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $processor->process($data);
 
@@ -88,7 +95,7 @@ class PipelineProcessorTest extends TestCase
         $processor = new TestPipelineProcessor();
 
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $processor->process($data);
 
@@ -109,7 +116,7 @@ class PipelineProcessorTest extends TestCase
         $processor = new TestPipelineProcessor();
 
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $processor->process($data);
     }
@@ -126,7 +133,7 @@ class PipelineProcessorTest extends TestCase
         $processor = new TestPipelineProcessor([], null, self::EXCEPTION_IN_MAIN_STEP);
 
         /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        $data = Mockery::mock(DataObjectInterface::class);
 
         try {
 

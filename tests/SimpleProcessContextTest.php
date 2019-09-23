@@ -3,6 +3,9 @@ namespace Czim\Processor\Test;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\Contexts\SimpleProcessContext;
+use Mockery;
+use Mockery\Mock;
+use Mockery\MockInterface;
 
 class SimpleProcessContextTest extends TestCase
 {
@@ -12,8 +15,8 @@ class SimpleProcessContextTest extends TestCase
      */
     function it_can_be_instantiated_with_settings()
     {
-        /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        /** @var DataObjectInterface|Mock|MockInterface $data */
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new SimpleProcessContext($data, [ 'test' => 'setting' ]);
 
@@ -26,27 +29,27 @@ class SimpleProcessContextTest extends TestCase
      */
     function it_takes_and_retrieves_data()
     {
-        /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        /** @var DataObjectInterface|Mock|MockInterface $data */
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new SimpleProcessContext($data);
 
-        /** @var DataObjectInterface $newData */
-        $newData = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        /** @var DataObjectInterface|Mock|MockInterface $newData */
+        $newData = Mockery::mock(DataObjectInterface::class);
 
         // set new data
         $context->setData($newData);
 
         static::assertSame($newData, $context->getData(), 'New data was not stored correctly');
     }
-    
+
     /**
      * @test
      */
     function it_sets_and_retrieves_cache_by_key()
     {
-        /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        /** @var DataObjectInterface|Mock|MockInterface $data */
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new SimpleProcessContext($data);
 
@@ -62,8 +65,8 @@ class SimpleProcessContextTest extends TestCase
      */
     function it_sets_and_retrieves_settings_by_key()
     {
-        /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
+        /** @var DataObjectInterface|Mock|MockInterface $data */
+        $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new SimpleProcessContext($data);
 

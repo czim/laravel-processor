@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+
 namespace Czim\Processor\Test;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -14,12 +16,12 @@ class RepositoryContextTraitTest extends TestCase
      */
     function it_takes_and_retrieves_a_repository_by_name()
     {
-        /** @var DataObjectInterface $data */
+        /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new TestRepositoryContext($data);
 
-        /** @var BaseRepositoryInterface $repository */
+        /** @var BaseRepositoryInterface|Mockery\Mock|Mockery\MockInterface $repository */
         $repository = Mockery::mock(BaseRepositoryInterface::class);
 
         $context->addRepository('test_repo', $repository);
@@ -35,7 +37,7 @@ class RepositoryContextTraitTest extends TestCase
         $this->expectException(ContextRepositoryException::class);
         $this->expectExceptionMessageRegExp('#not found.* unset_repo#');
 
-        /** @var DataObjectInterface $data */
+        /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
         $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
 
         $context = new TestRepositoryContext($data);
@@ -48,7 +50,7 @@ class RepositoryContextTraitTest extends TestCase
      */
     function it_delegates_method_calls_to_a_repository_by_name()
     {
-        /** @var DataObjectInterface $data */
+        /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);
 
         $context = new TestRepositoryContext($data);
@@ -58,7 +60,7 @@ class RepositoryContextTraitTest extends TestCase
         $repository = Mockery::mock(BaseRepositoryInterface::class);
         $repository->shouldReceive('testMethod')->once();
 
-        /** @var BaseRepositoryInterface $repository */
+        /** @var BaseRepositoryInterface|Mockery\Mock|Mockery\MockInterface $repository */
         $context->addRepository('test_repo', $repository);
 
         $context->repository('test_repo', 'testMethod', [ 'parameter' ]);

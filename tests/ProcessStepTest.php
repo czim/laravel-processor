@@ -5,6 +5,7 @@ use Czim\DataObject\Contracts\DataObjectInterface;
 use Czim\Processor\Contracts\ProcessContextInterface;
 use Czim\Processor\Test\Helpers\TestProcessStep;
 use Exception;
+use Mockery;
 
 class ProcessStepTest extends TestCase
 {
@@ -14,9 +15,10 @@ class ProcessStepTest extends TestCase
      */
     function it_calls_its_process_function_when_run_by_a_processor()
     {
-        /** @var ProcessContextInterface $context */
-        $context = $this->getMockBuilder(ProcessContextInterface::class)
-                        ->getMock();
+        /** @var ProcessContextInterface|Mockery\Mock|Mockery\MockInterface $context */
+        $context = Mockery::mock(ProcessContextInterface::class);
+        $context->shouldReceive('setSetting');
+        $context->shouldReceive('getData')->andReturn(Mockery::mock(DataObjectInterface::class));
 
         $step = new TestProcessStep();
 
@@ -31,12 +33,13 @@ class ProcessStepTest extends TestCase
      */
     function it_calls_the_next_step_in_the_pipeline()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('!next was called!');
 
-        /** @var ProcessContextInterface $context */
-        $context = $this->getMockBuilder(ProcessContextInterface::class)
-                        ->getMock();
+        /** @var ProcessContextInterface|Mockery\Mock|Mockery\MockInterface $context */
+        $context = Mockery::mock(ProcessContextInterface::class);
+        $context->shouldReceive('setSetting');
+        $context->shouldReceive('getData')->andReturn(Mockery::mock(DataObjectInterface::class));
 
         $closure = function () {
             // throw custom exception to assert that we got here
@@ -54,15 +57,13 @@ class ProcessStepTest extends TestCase
      */
     function it_stores_context_and_context_data_before_process_is_called()
     {
-        /** @var DataObjectInterface $data */
-        $data = $this->getMockBuilder(DataObjectInterface::class)
-                     ->getMock();
+        /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
+        $data = Mockery::mock(DataObjectInterface::class);
 
-        $context = $this->getMockBuilder(ProcessContextInterface::class)
-                        ->getMock();
-
-        $context->method('getData')
-                ->willReturn($data);
+        /** @var ProcessContextInterface|Mockery\Mock|Mockery\MockInterface $context */
+        $context = Mockery::mock(ProcessContextInterface::class);
+        $context->shouldReceive('setSetting');
+        $context->shouldReceive('getData')->andReturn($data);
 
         $step = new TestProcessStep();
 
