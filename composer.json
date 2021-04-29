@@ -19,15 +19,15 @@
         }
     ],
     "require": {
-        "php": ">=5.6.0",
-        "illuminate/support": "^5.0|^6.0",
-        "illuminate/database": "^5.0|^6.0",
+        "php": "^7.1|^8.0",
+        "illuminate/support": "^5.0|^6.0|^7.0|^8.0",
+        "illuminate/database": "^5.0|^6.0|^7.0|^8.0",
         "czim/laravel-dataobject": "^1.0|^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0|^8.0",
         "mockery/mockery": "^1.0",
-        "orchestra/testbench": "^3.8|^4.0",
+        "orchestra/testbench": "^3.8|^4.0|^5.0",
         "czim/laravel-repository": "*"
     },
     "autoload": {
@@ -38,6 +38,13 @@
     "autoload-dev": {
         "psr-4": {
             "Czim\\Processor\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Czim\\Processor\\ProcessorServiceProvider"
+            ]
         }
     },
     "scripts": {
