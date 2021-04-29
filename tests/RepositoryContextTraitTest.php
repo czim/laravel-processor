@@ -35,7 +35,7 @@ class RepositoryContextTraitTest extends TestCase
     public function it_throws_an_exception_if_it_cannot_find_a_repository(): void
     {
         $this->expectException(ContextRepositoryException::class);
-        $this->expectExceptionMessageRegExp('#not found.* unset_repo#');
+        $this->expectExceptionMessageMatches('#not found.* unset_repo#');
 
         /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
         $data = $this->getMockBuilder(DataObjectInterface::class)->getMock();
