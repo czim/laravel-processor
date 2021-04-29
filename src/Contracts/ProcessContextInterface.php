@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Contracts;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -9,7 +10,6 @@ use Czim\DataObject\Contracts\DataObjectInterface;
  */
 interface ProcessContextInterface
 {
-
     /**
      * @param DataObjectInterface     $data
      * @param array|null              $settings
@@ -94,5 +94,4 @@ interface ProcessContextInterface
      * @return mixed
      */
     public function getCache($key);
-
 }

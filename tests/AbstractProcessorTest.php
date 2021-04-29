@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Test;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -8,11 +9,10 @@ use Illuminate\Contracts\Support\MessageBag;
 
 class AbstractProcessorTest extends TestCase
 {
-
     /**
      * @test
      */
-    function it_takes_settings_on_construction()
+    public function it_takes_settings_on_construction(): void
     {
         $array = [
             'random' => 'setting',
@@ -26,7 +26,7 @@ class AbstractProcessorTest extends TestCase
     /**
      * @test
      */
-    function it_runs_the_doprocessing_and_before_and_after_methods_when_processing()
+    public function it_runs_the_doprocessing_and_before_and_after_methods_when_processing(): void
     {
         // note that this does not test the actual order in which
         // everything is called -- this is too trivial to worry about
@@ -50,7 +50,7 @@ class AbstractProcessorTest extends TestCase
     /**
      * @test
      */
-    function it_runs_the_initialize_method_after_construction()
+    public function it_runs_the_initialize_method_after_construction(): void
     {
         $processor = new TestSimpleProcessor();
 
@@ -61,7 +61,7 @@ class AbstractProcessorTest extends TestCase
     /**
      * @test
      */
-    function it_returns_a_result_dataobject()
+    public function it_returns_a_result_dataobject(): void
     {
         // it initializes this by itself (as an empty dataobject)
         // so this test does not need to do any actual processing
@@ -91,7 +91,7 @@ class AbstractProcessorTest extends TestCase
      * @test
      * @todo consider testing for Arrayable setExtraData() parameter
      */
-    function it_takes_extra_data_to_be_set_besides_data_in_context()
+    public function it_takes_extra_data_to_be_set_besides_data_in_context(): void
     {
         $data = [
             'testing' => 'data',
@@ -107,7 +107,7 @@ class AbstractProcessorTest extends TestCase
     /**
      * @test
      */
-    function it_stores_the_data_to_process()
+    public function it_stores_the_data_to_process(): void
     {
         $processor = new TestSimpleProcessor();
 

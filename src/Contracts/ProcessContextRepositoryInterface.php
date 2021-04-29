@@ -1,11 +1,11 @@
 <?php
+
 namespace Czim\Processor\Contracts;
 
 use Czim\Repository\Contracts\BaseRepositoryInterface as RepositoryInterface;
 
 interface ProcessContextRepositoryInterface
 {
-
     /**
      * Adds repository to the context
      *
@@ -32,5 +32,4 @@ interface ProcessContextRepositoryInterface
      * @return mixed
      */
     public function repository($name, $method, array $parameters = array());
-
 }

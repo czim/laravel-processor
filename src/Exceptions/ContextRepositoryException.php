@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Exceptions;
 
 use Exception;

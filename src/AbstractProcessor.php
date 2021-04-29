@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -10,7 +11,6 @@ use Illuminate\Support\MessageBag;
 
 abstract class AbstractProcessor implements ProcessorInterface
 {
-
     /**
      * Data to be processed
      *
@@ -185,5 +185,4 @@ abstract class AbstractProcessor implements ProcessorInterface
     protected function after()
     {
     }
-
 }

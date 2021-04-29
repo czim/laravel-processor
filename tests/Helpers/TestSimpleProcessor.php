@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Test\Helpers;
 
 use Czim\Processor\AbstractProcessor;
@@ -45,5 +46,4 @@ class TestSimpleProcessor extends AbstractProcessor
     {
         return $this->settings;
     }
-
 }

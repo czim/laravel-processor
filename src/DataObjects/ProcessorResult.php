@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\DataObjects;
 
 use Czim\DataObject\AbstractDataObject;
@@ -6,10 +7,8 @@ use Illuminate\Contracts\Support\MessageBag;
 
 class ProcessorResult extends AbstractDataObject
 {
-
     /**
      * @param bool $success
-     *
      * @return $this
      */
     public function setSuccess($success)
@@ -20,7 +19,7 @@ class ProcessorResult extends AbstractDataObject
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getSuccess()
     {

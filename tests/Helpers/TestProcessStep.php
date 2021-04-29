@@ -1,11 +1,11 @@
 <?php
+
 namespace Czim\Processor\Test\Helpers;
 
 use Czim\Processor\Steps\AbstractProcessStep;
 
 class TestProcessStep extends AbstractProcessStep
 {
-
     public $processWasCalled = false;
 
     protected function process()

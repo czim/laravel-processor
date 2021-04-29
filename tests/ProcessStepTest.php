@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Test;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -9,11 +10,10 @@ use Mockery;
 
 class ProcessStepTest extends TestCase
 {
-
     /**
      * @test
      */
-    function it_calls_its_process_function_when_run_by_a_processor()
+    public function it_calls_its_process_function_when_run_by_a_processor(): void
     {
         /** @var ProcessContextInterface|Mockery\Mock|Mockery\MockInterface $context */
         $context = Mockery::mock(ProcessContextInterface::class);
@@ -31,7 +31,7 @@ class ProcessStepTest extends TestCase
     /**
      * @test
      */
-    function it_calls_the_next_step_in_the_pipeline()
+    public function it_calls_the_next_step_in_the_pipeline(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('!next was called!');
@@ -55,7 +55,7 @@ class ProcessStepTest extends TestCase
     /**
      * @test
      */
-    function it_stores_context_and_context_data_before_process_is_called()
+    public function it_stores_context_and_context_data_before_process_is_called(): void
     {
         /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);
@@ -74,5 +74,4 @@ class ProcessStepTest extends TestCase
         static::assertSame($context, $step->testGetContext(), 'Context was not stored');
         static::assertSame($data, $step->testGetData(), 'Data was not stored');
     }
-
 }

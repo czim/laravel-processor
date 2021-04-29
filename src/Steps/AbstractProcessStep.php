@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Steps;
 
 use Closure;
@@ -8,7 +9,6 @@ use Czim\Processor\Contracts\ProcessStepInterface;
 
 abstract class AbstractProcessStep implements ProcessStepInterface
 {
-
     /**
      * The context for the process to pass from step to step
      *
@@ -69,6 +69,5 @@ abstract class AbstractProcessStep implements ProcessStepInterface
     protected function after()
     {
     }
-
 }
 

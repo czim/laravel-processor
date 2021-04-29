@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Test;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -9,11 +10,10 @@ use Mockery\MockInterface;
 
 class SimpleProcessContextTest extends TestCase
 {
-
     /**
      * @test
      */
-    function it_can_be_instantiated_with_settings()
+    public function it_can_be_instantiated_with_settings(): void
     {
         /** @var DataObjectInterface|Mock|MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);
@@ -27,7 +27,7 @@ class SimpleProcessContextTest extends TestCase
     /**
      * @test
      */
-    function it_takes_and_retrieves_data()
+    public function it_takes_and_retrieves_data(): void
     {
         /** @var DataObjectInterface|Mock|MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);
@@ -46,7 +46,7 @@ class SimpleProcessContextTest extends TestCase
     /**
      * @test
      */
-    function it_sets_and_retrieves_cache_by_key()
+    public function it_sets_and_retrieves_cache_by_key(): void
     {
         /** @var DataObjectInterface|Mock|MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);
@@ -63,7 +63,7 @@ class SimpleProcessContextTest extends TestCase
     /**
      * @test
      */
-    function it_sets_and_retrieves_settings_by_key()
+    public function it_sets_and_retrieves_settings_by_key(): void
     {
         /** @var DataObjectInterface|Mock|MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);

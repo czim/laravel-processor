@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Contracts;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -8,11 +9,8 @@ use Illuminate\Contracts\Support\Arrayable;
 
 interface ProcessorInterface
 {
-
     /**
-     * Process data
-     *
-     * @param DataObjectInterface $data
+     * @param DataObjectInterface|null $data
      * @return ProcessorResult
      * @throws CouldNotHandleDataException
      */
@@ -23,9 +21,8 @@ interface ProcessorInterface
      * For instance, local data as opposed to the data imported externally
      * and stored through the process context's setData()
      *
-     * @param array|Arrayable $data
+     * @param mixed[]|Arrayable $data
      * @return $this
      */
     public function setExtraData($data);
-
 }

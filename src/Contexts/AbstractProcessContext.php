@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Contexts;
 
 use Czim\Processor\Contracts\ProcessContextInterface;
@@ -8,7 +9,6 @@ use Illuminate\Support\Arr;
 
 abstract class AbstractProcessContext implements ProcessContextInterface
 {
-
     /**
      * Data being processed
      *
@@ -49,7 +49,7 @@ abstract class AbstractProcessContext implements ProcessContextInterface
         $this->data      = $data;
         $this->processor = $processor;
 
-        if ( ! is_null($settings)) {
+        if ($settings !== null) {
             $this->setSettings($settings);
         }
 
@@ -183,5 +183,4 @@ abstract class AbstractProcessContext implements ProcessContextInterface
     protected function initialize()
     {
     }
-
 }

@@ -14,7 +14,7 @@ class RepositoryContextTraitTest extends TestCase
     /**
      * @test
      */
-    function it_takes_and_retrieves_a_repository_by_name()
+    public function it_takes_and_retrieves_a_repository_by_name(): void
     {
         /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);
@@ -32,7 +32,7 @@ class RepositoryContextTraitTest extends TestCase
     /**
      * @test
      */
-    function it_throws_an_exception_if_it_cannot_find_a_repository()
+    public function it_throws_an_exception_if_it_cannot_find_a_repository(): void
     {
         $this->expectException(ContextRepositoryException::class);
         $this->expectExceptionMessageRegExp('#not found.* unset_repo#');
@@ -48,7 +48,7 @@ class RepositoryContextTraitTest extends TestCase
     /**
      * @test
      */
-    function it_delegates_method_calls_to_a_repository_by_name()
+    public function it_delegates_method_calls_to_a_repository_by_name(): void
     {
         /** @var DataObjectInterface|Mockery\Mock|Mockery\MockInterface $data */
         $data = Mockery::mock(DataObjectInterface::class);

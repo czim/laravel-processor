@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Test\Helpers;
 
 use Czim\Processor\Contracts\ProcessContextInterface;

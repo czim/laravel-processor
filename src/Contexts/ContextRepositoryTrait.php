@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Contexts;
 
 use Czim\Processor\Exceptions\ContextRepositoryException;
@@ -6,11 +7,8 @@ use Czim\Repository\Contracts\BaseRepositoryInterface as RepositoryInterface;
 
 trait ContextRepositoryTrait
 {
-
     /**
-     * Repositories
-     *
-     * @var array
+     * @var array<string, RepositoryInterface>
      */
     protected $repositories = [];
 
@@ -34,7 +32,7 @@ trait ContextRepositoryTrait
      */
     public function getRepository($name)
     {
-        if ( ! array_key_exists($name, $this->repositories)) {
+        if (! array_key_exists($name, $this->repositories)) {
 
             throw new ContextRepositoryException("Repository by name not found: {$name}");
         }

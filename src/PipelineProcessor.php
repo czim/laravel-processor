@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor;
 
 use Czim\Processor\Contracts\ProcessContextInterface;
@@ -13,7 +14,6 @@ use Exception;
  */
 abstract class PipelineProcessor extends AbstractProcessor
 {
-
     /**
      * Whether the main process should be run in a DB transaction
      * and rolled back on exceptions
@@ -206,5 +206,4 @@ abstract class PipelineProcessor extends AbstractProcessor
     protected function onExceptionInPipeline(Exception $e)
     {
     }
-
 }

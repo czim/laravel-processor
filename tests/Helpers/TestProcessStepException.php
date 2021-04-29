@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Test\Helpers;
 
 class TestProcessStepException extends TestProcessStep

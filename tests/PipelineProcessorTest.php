@@ -1,4 +1,5 @@
 <?php
+
 namespace Czim\Processor\Test;
 
 use Czim\DataObject\Contracts\DataObjectInterface;
@@ -11,13 +12,13 @@ use Mockery;
 
 class PipelineProcessorTest extends TestCase
 {
-    const EXCEPTION_IN_MAIN_STEP = true;
+    protected const EXCEPTION_IN_MAIN_STEP = true;
 
 
     /**
      * @test
      */
-    function it_takes_a_process_context_on_construction()
+    public function it_takes_a_process_context_on_construction(): void
     {
         DB::shouldReceive('beginTransaction')->once();
         DB::shouldReceive('commit')->once();
@@ -44,7 +45,7 @@ class PipelineProcessorTest extends TestCase
     /**
      * @test
      */
-    function it_builds_a_standard_process_context_if_not_injected_on_construction()
+    public function it_builds_a_standard_process_context_if_not_injected_on_construction(): void
     {
         DB::shouldReceive('beginTransaction')->once();
         DB::shouldReceive('commit')->once();
@@ -65,7 +66,7 @@ class PipelineProcessorTest extends TestCase
      * @test
      * @depends it_builds_a_standard_process_context_if_not_injected_on_construction
      */
-    function it_runs_an_init_step_if_defined()
+    public function it_runs_an_init_step_if_defined(): void
     {
         DB::shouldReceive('beginTransaction')->once();
         DB::shouldReceive('commit')->once();
@@ -87,7 +88,7 @@ class PipelineProcessorTest extends TestCase
      * @test
      * @depends it_builds_a_standard_process_context_if_not_injected_on_construction
      */
-    function it_runs_a_main_step()
+    public function it_runs_a_main_step(): void
     {
         DB::shouldReceive('beginTransaction')->once();
         DB::shouldReceive('commit')->once();
@@ -108,7 +109,7 @@ class PipelineProcessorTest extends TestCase
     /**
      * @test
      */
-    function it_runs_the_main_process_steps_in_a_database_transaction()
+    public function it_runs_the_main_process_steps_in_a_database_transaction(): void
     {
         DB::shouldReceive('beginTransaction')->once();
         DB::shouldReceive('commit')->once();
@@ -125,7 +126,7 @@ class PipelineProcessorTest extends TestCase
      * @test
      * @depends it_runs_the_main_process_steps_in_a_database_transaction
      */
-    function it_does_a_rollback_for_main_process_steps_if_an_exception_is_thrown()
+    public function it_does_a_rollback_for_main_process_steps_if_an_exception_is_thrown(): void
     {
         DB::shouldReceive('beginTransaction')->once();
         DB::shouldReceive('rollBack')->once();
@@ -143,5 +144,4 @@ class PipelineProcessorTest extends TestCase
             // caught only to let test pass and check rollBack
         }
     }
-
 }
