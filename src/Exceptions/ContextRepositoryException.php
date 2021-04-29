@@ -2,8 +2,8 @@
 
 namespace Czim\Processor\Exceptions;
 
-use Exception;
+use RuntimeException;
 
-class ContextRepositoryException extends Exception
+class ContextRepositoryException extends RuntimeException
 {
 }

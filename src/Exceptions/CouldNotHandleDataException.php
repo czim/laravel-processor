@@ -2,8 +2,8 @@
 
 namespace Czim\Processor\Exceptions;
 
-use Exception;
+use RuntimeException;
 
-class CouldNotHandleDataException extends Exception
+class CouldNotHandleDataException extends RuntimeException
 {
 }
